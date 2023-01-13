@@ -9,9 +9,9 @@ class SearchBox extends Component {
     searchLineChangeHandler = (e) => {
         this.setState({ searchLine: e.target.value });
     }
-    searchBoxSubmitHandler = (e) => {
+    searchBoxSubmitHandler = async (e) => {
         e.preventDefault();
-        fetch(`http://www.omdbapi.com/?s=${this.state.searchLine}&apikey=6368aebf`)
+        await fetch(`http://www.omdbapi.com/?s=${this.state.searchLine}&apikey=6368aebf`)
         .then(response => response.json())
         .then(data => this.props.addMovie(data.Search))
     }
@@ -44,10 +44,10 @@ class SearchBox extends Component {
     }
 }
  
-const mapStateToProps = (state) => {
-    return state.movies
-}
-const mapDispatchToProps = (dispatch) => {
-    return {addMovie: (movies) => dispatch({type: "ADD_MOVIE", payload: movies})}
-}
+const mapStateToProps = state => ({
+    movies: state.movies
+})
+const mapDispatchToProps = dispatch => ({
+addMovie: (movies) => dispatch({type: "ADD_MOVIE", payload: movies})
+})
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
