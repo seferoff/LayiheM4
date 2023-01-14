@@ -36,3 +36,9 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.favMovie {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}

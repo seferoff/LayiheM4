@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import "./MovieItem.css";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 class MovieItem extends Component {
-
-    addFavMovie = (e) => {
-        this.props.movies.map((movie) => {
-                if (e.target.value === movie.imdbID) {
-                    const clone = this.props.favMovies
-                    clone.push(movie)
-                    console.log(this.props.favMovies);
-                }
-                return this.props.favMovies
-        })
-    }
 
   render() {
     const { Title, Year, Poster, imdbID } = this.props;
@@ -28,7 +17,7 @@ class MovieItem extends Component {
             type="button"
             className="movie-item__add-button"
             value={imdbID}
-            onClick={this.addFavMovie}
+            onClick={() => this.props.addFavMovie(this.props)}
           >
             Добавить в список
           </button>
@@ -39,9 +28,12 @@ class MovieItem extends Component {
 }
 
 const mapStateToProps = store => ({
-    movies: store.movies,
-    favMovies: store.favMovies
+  movies: store.movies,
+  favMovies: store.favMovies,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addFavMovie: (favMovies) => dispatch({type: "ADD_FAV_MOVIE", payload: favMovies})
 })
 
-
-export default connect(mapStateToProps)(MovieItem);
+export default connect(mapStateToProps,mapDispatchToProps)(MovieItem);

@@ -14,6 +14,7 @@ class SearchBox extends Component {
         await fetch(`http://www.omdbapi.com/?s=${this.state.searchLine}&apikey=6368aebf`)
         .then(response => response.json())
         .then(data => this.props.addMovie(data.Search))
+        .catch(error => {throw(error)})
     }
     render() {
         const { searchLine } = this.state;

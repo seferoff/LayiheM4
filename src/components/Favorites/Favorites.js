@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import "./Favorites.css";
-import {connect} from 'react-redux';
-import MovieItem from "../MovieItem/MovieItem";
+import { connect } from "react-redux";
 
 class Favorites extends Component {
   state = {
-    title: "Новый список",
-    favMovies: [
-      // { imdbID: 'tt0068646', title: 'The Godfather', year: 1972 }
-    ],
     inputValue: "",
   };
 
@@ -18,6 +13,8 @@ class Favorites extends Component {
 
   render() {
     const { inputValue } = this.state;
+    const { favMovies } = this.props;
+
     return (
       <div className="favorites">
         <input
@@ -27,16 +24,26 @@ class Favorites extends Component {
           placeholder="Новый список"
         />
         <ul className="favorites__list">
-          {this.props.favMovies.map((item) => {
+          {favMovies.map((movie) => {
             return (
-              <li key={item.id}>
-                {item.title} ({item.year})
+              <li className="favMovie" key={movie.imdbID}>
+                <div>
+                  {movie.Title} {movie.Year}
+                </div>
+                <button
+                  key={movie.imdbID}
+                  data-index={movie.imdbID}
+                  type="button"
+                  onClick={(e) => this.props.deleteFavMovie(e.target.getAttribute("data-index"))}
+                >
+                  X
+                </button>
               </li>
             );
           })}
         </ul>
         <button
-          type="submit"
+          type="button"
           className="favorites__save"
           disabled={!inputValue}
         >
@@ -47,10 +54,14 @@ class Favorites extends Component {
   }
 }
 
-const mapStateToProps = store => ({
-    movies: store.movies,
-    favMovies: store.favMovies
-})
+const mapStateToProps = (store) => ({
+  movies: store.movies,
+  favMovies: store.favMovies,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteFavMovie: (favMovies) =>
+    dispatch({ type: "DELETE_FAV_MOVIE", payload: favMovies }),
+});
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

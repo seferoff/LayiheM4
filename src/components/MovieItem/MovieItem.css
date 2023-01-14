@@ -29,3 +29,8 @@
     opacity: 0.9;
     transition: all 0.2s linear;
 }
+
+.movie-item__add-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
