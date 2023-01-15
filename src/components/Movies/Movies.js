@@ -9,7 +9,7 @@ class Movies extends Component {
     return (
       <div>
         {(() => {
-          if (movies === null) {
+          if (movies === undefined) {
             return <div>Axtardiginiz film yoxdur!</div>;
           } else {
             return (

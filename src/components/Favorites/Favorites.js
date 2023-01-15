@@ -1,18 +1,50 @@
 import React, { Component } from "react";
 import "./Favorites.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 class Favorites extends Component {
   state = {
+    id: "",
     inputValue: "",
+    buttonClick: false,
   };
 
   handleChange = (e) => {
     this.setState({ inputValue: e.target.value });
   };
 
+  saveToList = () => {
+    this.setState({ buttonClick: true });
+    const uniqueId = uuid();
+    this.setState({ id: uniqueId });
+
+    const info = {
+      id: uniqueId,
+      title: this.state.inputValue,
+      movies: this.props.favMovies.map(
+        (movie) =>
+          `${movie.Title} ${
+            movie.Year
+          } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
+      ),
+    };
+    console.log(info);
+    fetch(
+      `https://acb-api.algoritmika.org/api/movies/list/${info.id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(info),
+      }
+    );
+  };
+
   render() {
-    const { inputValue } = this.state;
+    const { inputValue, buttonClick, id } = this.state;
     const { favMovies } = this.props;
 
     return (
@@ -34,7 +66,11 @@ class Favorites extends Component {
                   key={movie.imdbID}
                   data-index={movie.imdbID}
                   type="button"
-                  onClick={(e) => this.props.deleteFavMovie(e.target.getAttribute("data-index"))}
+                  onClick={(e) =>
+                    this.props.deleteFavMovie(
+                      e.target.getAttribute("data-index")
+                    )
+                  }
                 >
                   X
                 </button>
@@ -42,13 +78,28 @@ class Favorites extends Component {
             );
           })}
         </ul>
-        <button
-          type="button"
-          className="favorites__save"
-          disabled={!inputValue}
-        >
-          Сохранить список
-        </button>
+        <div>
+          {(() => {
+            if (buttonClick === true) {
+              return (
+                <div>
+                  <Link to={`/list/${id}`}>Go to the list</Link>
+                </div>
+              );
+            } else {
+              return (
+                <button
+                  type="button"
+                  className="favorites__save"
+                  disabled={!inputValue}
+                  onClick={this.saveToList}
+                >
+                  Save the list
+                </button>
+              );
+            }
+          })()}
+        </div>
       </div>
     );
   }

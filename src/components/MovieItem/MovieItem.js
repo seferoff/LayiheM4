@@ -19,7 +19,7 @@ class MovieItem extends Component {
             value={imdbID}
             onClick={() => this.props.addFavMovie(this.props)}
           >
-            Добавить в список
+            Add to the list
           </button>
         </div>
       </article>
