@@ -20,27 +20,27 @@ class Favorites extends Component {
     const uniqueId = uuid();
     this.setState({ id: uniqueId });
 
-    const info = {
-      id: uniqueId,
-      title: this.state.inputValue,
-      movies: this.props.favMovies.map(
-        (movie) =>
-          `${movie.Title} ${
-            movie.Year
-          } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
-      ),
-    };
-    console.log(info);
-    fetch(
-      `https://acb-api.algoritmika.org/api/movies/list/${info.id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(info),
-      }
-    );
+    // const info = {
+    //   id: uniqueId,
+    //   title: this.state.inputValue,
+    //   movies: this.props.favMovies.map(
+    //     (movie) =>
+    //       `${movie.Title} ${
+    //         movie.Year
+    //       } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
+    //   ),
+    // };
+    // console.log(info);
+    // fetch(
+    //   `https://acb-api.algoritmika.org/api/movies/list/${info.id}`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //     body: JSON.stringify(info),
+    //   }
+    // );
   };
 
   render() {
@@ -53,7 +53,7 @@ class Favorites extends Component {
           value={inputValue}
           className="favorites__name"
           onChange={this.handleChange}
-          placeholder="Новый список"
+          placeholder="New list"
         />
         <ul className="favorites__list">
           {favMovies.map((movie) => {

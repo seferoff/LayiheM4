@@ -10,16 +10,21 @@ class Movies extends Component {
       <div>
         {(() => {
           if (movies === undefined) {
-            return <div>Axtardiginiz film yoxdur!</div>;
+            return (
+              <>
+                <div className="noMovie">There is no movie for this search.</div>
+                <div>Please try again!</div>
+              </>
+            );
           } else {
             return (
-                <ul className="movies">
-                  {movies.map((movie) => (
-                    <li className="movies__item" key={movie.imdbID}>
-                      <MovieItem {...movie} />
-                    </li>
-                  ))}
-                </ul>
+              <ul className="movies">
+                {movies.map((movie) => (
+                  <li className="movies__item" key={movie.imdbID}>
+                    <MovieItem {...movie} />
+                  </li>
+                ))}
+              </ul>
             );
           }
         })()}
