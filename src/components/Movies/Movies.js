@@ -12,7 +12,9 @@ class Movies extends Component {
           if (movies === undefined) {
             return (
               <>
-                <div className="noMovie">There is no movie for this search.</div>
+                <div className="noMovie">
+                  There is no movie for this search.
+                </div>
                 <div>Please try again!</div>
               </>
             );

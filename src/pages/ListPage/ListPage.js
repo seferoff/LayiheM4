@@ -3,9 +3,8 @@ import "./ListPage.css";
 import { connect } from "react-redux";
 
 class ListPage extends Component {
-    
   componentDidMount() {
-    this.setState({id: this.props.match.params.id})
+    this.setState({ id: this.props.match.params.id });
   }
 
   render() {
@@ -32,9 +31,9 @@ class ListPage extends Component {
   }
 }
 
-const mapStateToProps = store => ({
-    movies: store.movies,
-    favMovies: store.favMovies,
-  });
-  
-  export default connect(mapStateToProps)(ListPage);
+const mapStateToProps = (store) => ({
+  movies: store.movies,
+  favMovies: store.favMovies,
+});
+
+export default connect(mapStateToProps)(ListPage);

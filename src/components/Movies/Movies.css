@@ -1,8 +1,19 @@
 .movies__item {
-    margin-bottom: 21px;
+  margin-bottom: 21px;
 }
 
 .noMovie {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+  .movies {
+    width: 100%;
+  }
+
+  .movies__item {
+    width: 100%;
+    min-width: 300px;
+  }
 }

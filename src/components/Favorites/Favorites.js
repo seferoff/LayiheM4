@@ -20,27 +20,24 @@ class Favorites extends Component {
     const uniqueId = uuid();
     this.setState({ id: uniqueId });
 
-    // const info = {
-    //   id: uniqueId,
-    //   title: this.state.inputValue,
-    //   movies: this.props.favMovies.map(
-    //     (movie) =>
-    //       `${movie.Title} ${
-    //         movie.Year
-    //       } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
-    //   ),
-    // };
-    // console.log(info);
-    // fetch(
-    //   `https://acb-api.algoritmika.org/api/movies/list/${info.id}`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(info),
-    //   }
-    // );
+    const info = {
+      id: uniqueId,
+      title: this.state.inputValue,
+      movies: this.props.favMovies.map(
+        (movie) =>
+          `${movie.Title} ${
+            movie.Year
+          } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
+      ),
+    };
+    console.log(info);
+    fetch(`https://acb-api.algoritmika.org/api/movies/list/${info.id}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(info),
+    });
   };
 
   render() {
@@ -83,7 +80,9 @@ class Favorites extends Component {
             if (buttonClick === true) {
               return (
                 <div>
-                  <Link to={`/list/${id}`}>Go to the list</Link>
+                  <Link to={`/list/${id}`} onClick={this.post}>
+                    Go to the list
+                  </Link>
                 </div>
               );
             } else {

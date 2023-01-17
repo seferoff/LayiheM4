@@ -3,7 +3,6 @@ import "./MovieItem.css";
 import { connect } from "react-redux";
 
 class MovieItem extends Component {
-
   render() {
     const { Title, Year, Poster, imdbID } = this.props;
     return (
@@ -27,13 +26,14 @@ class MovieItem extends Component {
   }
 }
 
-const mapStateToProps = store => ({
+const mapStateToProps = (store) => ({
   movies: store.movies,
   favMovies: store.favMovies,
 });
 
-const mapDispatchToProps = dispatch => ({
-  addFavMovie: (favMovies) => dispatch({type: "ADD_FAV_MOVIE", payload: favMovies})
-})
+const mapDispatchToProps = (dispatch) => ({
+  addFavMovie: (favMovies) =>
+    dispatch({ type: "ADD_FAV_MOVIE", payload: favMovies }),
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(MovieItem);
+export default connect(mapStateToProps, mapDispatchToProps)(MovieItem);
