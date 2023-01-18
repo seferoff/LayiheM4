@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Favorites.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 
 class Favorites extends Component {
   state = {
@@ -15,29 +14,24 @@ class Favorites extends Component {
     this.setState({ inputValue: e.target.value });
   };
 
-  saveToList = () => {
+  saveToList = async() => {
     this.setState({ buttonClick: true });
-    const uniqueId = uuid();
-    this.setState({ id: uniqueId });
 
     const info = {
-      id: uniqueId,
       title: this.state.inputValue,
       movies: this.props.favMovies.map(
         (movie) =>
-          `${movie.Title} ${
-            movie.Year
-          } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
+          `${movie.Title} ${ movie.Year } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
       ),
     };
     console.log(info);
-    fetch(`https://acb-api.algoritmika.org/api/movies/list/${info.id}`, {
+    await fetch("https://acb-api.algoritmika.org/api/movies/list", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(info),
-    });
+    }).then(res=> res.json()).then(res=>this.setState({id:res.id}))
   };
 
   render() {
