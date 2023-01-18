@@ -15,7 +15,7 @@ class Movies extends Component {
                 <div className="noMovie">
                   There is no movie for this search.
                 </div>
-                <div>Please try again!</div>
+                <div className="tryAgain">Please try again!</div>
               </>
             );
           } else {

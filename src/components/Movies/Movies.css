@@ -16,4 +16,8 @@
     width: 100%;
     min-width: 300px;
   }
+
+  .tryAgain {
+    margin-bottom: 20px;
+  }
 }
