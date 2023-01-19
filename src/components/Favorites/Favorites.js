@@ -77,9 +77,16 @@ class Favorites extends Component {
             if (buttonClick === true) {
               return (
                 <div>
-                  <Link to={`/list/${id}`} onClick={this.post}>
-                    Go to the list
-                  </Link>
+                  <Link to={`/list/${id}`}>Go to the list</Link>
+                  <div className="to_api">
+                    <a
+                      href={`https://acb-api.algoritmika.org/api/movies/list/${id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      My "{inputValue}" list info
+                    </a>
+                  </div>
                 </div>
               );
             } else {
