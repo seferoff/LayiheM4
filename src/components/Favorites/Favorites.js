@@ -14,24 +14,27 @@ class Favorites extends Component {
     this.setState({ inputValue: e.target.value });
   };
 
-  saveToList = async() => {
+  saveToList = async () => {
     this.setState({ buttonClick: true });
 
     const info = {
       title: this.state.inputValue,
       movies: this.props.favMovies.map(
         (movie) =>
-          `${movie.Title} ${ movie.Year } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
+          `${movie.Title} ${
+            movie.Year
+          } (Imdb: ${`https://www.imdb.com/title/${movie.imdbID}/`})`
       ),
     };
-    console.log(info);
     await fetch("https://acb-api.algoritmika.org/api/movies/list", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(info),
-    }).then(res=> res.json()).then(res=>this.setState({id:res.id}))
+    })
+      .then((res) => res.json())
+      .then((res) => this.setState({ id: res.id }));
   };
 
   render() {
